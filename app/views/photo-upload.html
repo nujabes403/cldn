@@ -1,8 +1,4 @@
-<div
-    ngf-drop="uploadFiles($files)"
-    ngf-drag-over-class="'dragover'"
-    ng-model="files"
-    multiple="true">
+<div>
     <h1>이미지 업로드</h1>
     <form>
         <div>
@@ -12,36 +8,36 @@
             </div>
         </div>
         <div>
-            <label>이미지 선택 (드래그 & 드랍 가능):</label>
+            <label>이미지 삽입 (드래그 & 드랍 가능):</label>
             <div>
                 <div>
-                    <div href="#" class="btn btn-primary" ngf-select="uploadFiles($files)" multiple title="upload" resetOnClick="true" >Upload</div>
+                    <div href="#" class="drop-box" ngf-drop="uploadFiles($files)" ngf-drag-over-class="dragover" ng-model="files" ngf-select="uploadFiles($files)" multiple="true" title="upload" resetOnClick="true" >
+                        이미지 삽입</div>
                 </div>
             </div>
         </div>
     </form>
-    <h2>상태</h2>
-    <a href="#/photos">리스트로</a>
-    <div ng-repeat="file in files">
-        <h3>{{file.name}} {{f.$error}} {{f.$errorParam}}</h3>
-        <div class="status">{{file.status}}</div>
-        <div class="progress-bar">
-          <div class="progress" style="width: {{file.progress}}%" ng-init="progress=0"></div>
-        </div>
+</div>
+<h2>상태</h2>
+<a href="#/photos">리스트로</a>
+<div ng-repeat="file in files">
+    <h3>{{file.name}} {{f.$error}} {{f.$errorParam}}</h3>
+    <div class="status">{{file.status}}</div>
+    <div class="progress-bar">
+      <div class="progress" style="width: {{file.progress}}%" ng-init="progress=0"></div>
+    </div>
+    <div>
         <div>
             <div>
-                <div>
-                    <img width="100" height="100" ngf-src="file.result.url || file">
-                </div>
+                <img width="100" height="100" ngf-src="file.result.url || file">
             </div>
         </div>
-        <div>
-          <table>
-            <tr ng-repeat="(key, value) in file.result">
-              <td> {{key}}  </td> <td> {{ value }} </td>
-            </tr>
-          </table>
-        </div>
     </div>
-
+    <div>
+      <table>
+        <tr ng-repeat="(key, value) in file.result">
+          <td> {{key}}  </td> <td> {{ value }} </td>
+        </tr>
+      </table>
+    </div>
 </div>

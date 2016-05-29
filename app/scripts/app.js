@@ -28,7 +28,6 @@ angular
     $routeProvider
       .when('/photos', {
         templateUrl: 'views/photo-list.html',
-        controller: 'PhotoListCtrl',
         resolve: {
             photoList: function($q,$rootScope,photoService){
                 if(!$rootScope.photosLoaded){
