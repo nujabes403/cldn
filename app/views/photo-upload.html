@@ -1,0 +1,47 @@
+<div
+    ngf-drop="uploadFiles($files)"
+    ngf-drag-over-class="'dragover'"
+    ng-model="files"
+    multiple="true">
+    <h1>이미지 업로드</h1>
+    <form>
+        <div>
+            <label path="title">제목:</label>
+            <div>
+                <input type="text" class="form-control" placeholder="제목을 입력해주세요." ng-model="title" />
+            </div>
+        </div>
+        <div>
+            <label>이미지 선택 (드래그 & 드랍 가능):</label>
+            <div>
+                <div>
+                    <div href="#" class="btn btn-primary" ngf-select="uploadFiles($files)" multiple title="upload" resetOnClick="true" >Upload</div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <h2>상태</h2>
+    <a href="#/photos">리스트로</a>
+    <div ng-repeat="file in files">
+        <h3>{{file.name}} {{f.$error}} {{f.$errorParam}}</h3>
+        <div class="status">{{file.status}}</div>
+        <div class="progress-bar">
+          <div class="progress" style="width: {{file.progress}}%" ng-init="progress=0"></div>
+        </div>
+        <div>
+            <div>
+                <div>
+                    <img width="100" height="100" ngf-src="file.result.url || file">
+                </div>
+            </div>
+        </div>
+        <div>
+          <table>
+            <tr ng-repeat="(key, value) in file.result">
+              <td> {{key}}  </td> <td> {{ value }} </td>
+            </tr>
+          </table>
+        </div>
+    </div>
+
+</div>

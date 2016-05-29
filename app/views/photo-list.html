@@ -1,0 +1,17 @@
+<div class="jumbotron">
+  <h1>Outlet uploader v0</h1>
+  <p class="lead">
+    1. Upload images to your image server<br/>
+    2. Load images from your image server
+  </p>
+</div>
+<a href="#/photos/new" class="btn btn-primary">이미지 업로드</a>
+<div class="photos">
+  <p ng-if="photos.length === 0 || !photos">No photos were added yet.</p>
+  <div class="photo" ng-repeat="photo in photos">
+    <h5>제목 : {{photo.context.custom.photo}}</h5>
+    <a cl-href="{{photo.public_id}}" format="jpg" target="_blank">
+      <cl-image public-id="{{photo.public_id}}" width="300" height="300" crop="fit" quality="100" format="jpg"/>
+    </a>
+  </div>
+</div>
