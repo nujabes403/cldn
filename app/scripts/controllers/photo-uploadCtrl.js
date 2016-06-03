@@ -8,7 +8,10 @@
  * Controller of the cldnApp
  */
 angular.module('cldnApp')
-  .controller('PhotoUploadCtrl', function($scope, $rootScope, $routeParams, $location, Upload, cloudinary, IMGTAG) {
+  .controller('PhotoUploadCtrl', function($scope, $rootScope, $routeParams, $location, Upload, cloudinary, IMGTAG,$http) {
+
+      var database = firebase.database();
+
     $scope.uploadFiles = function(files){
       $scope.files = files;
       if (!$scope.files) return;
@@ -26,11 +29,15 @@ angular.module('cldnApp')
             file.progress = Math.round((uploadingFile.loaded * 100.0) / uploadingFile.total);
             file.status = "업로딩 : " + file.progress + "%";
           }).success(function (data, status, headers, config) {
+              console.log(data);
+              database.ref('public_ids/' + data.public_id).set({
+                 value:true
+              });
             file.status = "업로드 완료!";
-            $rootScope.photos = $rootScope.photos || [];
-            data.context = {custom: {photo: $scope.title}};
+            // $rootScope.photos = $rootScope.photos || [];
+            // data.context = {custom: {photo: $scope.title}};
             file.result = data;
-            $rootScope.photos.push(data);
+            // $rootScope.photos.push(data);
           }).error(function (data, status, headers, config) {
             file.result = data;
           });

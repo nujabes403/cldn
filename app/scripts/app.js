@@ -18,8 +18,18 @@ angular
     'ngTouch',
     'cloudinary',
     'ngFileUpload',
+    'firebase',
   ])
   .config(function (cloudinaryProvider,$routeProvider) {
+       // Initialize Firebase
+       var firebase_config = {
+         apiKey: "AIzaSyDpQcXly7_7OzEM6mV3epp2E6O1veDr1UQ",
+         authDomain: "cldn.firebaseapp.com",
+         databaseURL: "https://cldn.firebaseio.com",
+         storageBucket: "project-6745544484729731893.appspot.com",
+       };
+       firebase.initializeApp(firebase_config);
+
     //   cloudinary setting
       cloudinaryProvider
       .set("cloud_name", "dxmiqvbcr")
@@ -28,18 +38,19 @@ angular
     $routeProvider
       .when('/photos', {
         templateUrl: 'views/photo-list.html',
-        resolve: {
-            photoList: function($q,$rootScope,photoService){
-                if(!$rootScope.photosLoaded){
-                    return photoService.loadPhotos({},function(data){
-                        $rootScope.photosLoaded = true;
-                        $rootScope.photos = data.resources;
-                    });
-                } else{
-                    return $q.when(true);
-                }
-            }
-        },
+        controller: 'PhotoListCtrl',
+        // resolve: {
+        //     photoList: function($q,$rootScope,photoService){
+        //         if(!$rootScope.photosLoaded){
+        //             return photoService.loadPhotos({},function(data){
+        //                 $rootScope.photosLoaded = true;
+        //                 $rootScope.photos = data.resources;
+        //             });
+        //         } else{
+        //             return $q.when(true);
+        //         }
+        //     }
+        // }
       })
       .when('/photos/new', {
         templateUrl: 'views/photo-upload.html',

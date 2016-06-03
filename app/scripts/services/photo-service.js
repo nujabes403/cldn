@@ -12,6 +12,7 @@ angular.module('cldnApp')
 .value('IMGTAG','outletImg')
   .factory('photoService', function ($resource,cloudinary,IMGTAG) {
       var url = cloudinary.url(IMGTAG,{format:'json',type:'list'});
+      console.log(url);
       return $resource(url, {}, {
           loadPhotos: {method: 'GET', isArray:false}
       });
